@@ -1,0 +1,6 @@
+frontend/demo/__pycache__/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.DS_Store
