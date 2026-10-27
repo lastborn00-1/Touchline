@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touchline — Explainable Match Intelligence</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">⚽ <strong>TOUCHLINE</strong><span class="tag">explainable match intelligence · synthetic data</span></div>
+  <div class="controls">
+    <label>Speed
+      <select id="speed"><option value="20">20×</option><option value="8" selected>8×</option><option value="2">2×</option><option value="1">1×</option></select>
+    </label>
+    <label>Seed <input id="seed" type="number" value="7" min="1" max="9999" style="width:5.5em"></label>
+    <button id="kickoff" class="primary">▶ Kick off</button>
+  </div>
+</header>
+
+<section id="scorebug" class="scorebug">
+  <div class="team home"><span class="badge" id="hBadge"></span><div><b id="hName">—</b><small id="hMeta"></small></div></div>
+  <div class="mid">
+    <div class="score" id="score">0 : 0</div>
+    <div class="clock" id="clock">00:00</div>
+  </div>
+  <div class="team away"><div class="right"><b id="aName">—</b><small id="aMeta"></small></div><span class="badge" id="aBadge"></span></div>
+</section>
+
+<nav class="personas" id="personas">
+  <button data-p="analyst" class="on">Analyst</button>
+  <button data-p="casual">Casual fan</button>
+  <button data-p="player">Player focus</button>
+  <select id="lang" title="Commentary language">
+    <option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+    <option value="de">DE</option><option value="ar">AR</option><option value="hi">HI</option>
+  </select>
+</nav>
+
+<main class="grid">
+  <section class="pitch-wrap">
+    <canvas id="pitch" width="700" height="470"></canvas>
+    <div id="commentary" class="ticker" dir="ltr"></div>
+  </section>
+  <aside class="side">
+    <div class="panels analyst">
+      <h3>Match telemetry</h3>
+      <table class="telemetry">
+        <tr><th></th><th id="th">—</th><th id="ta">—</th></tr>
+        <tr><td>xG</td><td id="hxg">0.00</td><td id="axg">0.00</td></tr>
+        <tr><td>Shots (on target)</td><td id="hshots">0 (0)</td><td id="ashots">0 (0)</td></tr>
+        <tr><td>Possession</td><td id="hposs">50%</td><td id="aposs">50%</td></tr>
+        <tr><td>Pass accuracy</td><td id="hacc">–</td><td id="aacc">–</td></tr>
+        <tr><td>PPDA (press)</td><td id="hppda">–</td><td id="appda">–</td></tr>
+        <tr><td>Control index</td><td id="hci">50</td><td id="aci">50</td></tr>
+      </table>
+      <div class="chaosbar"><div id="chaosFill"></div></div>
+      <small class="muted">Control vs Chaos index · 100 = structured possession</small>
+    </div>
+    <div class="panels casual hidden">
+      <h3>Why it matters</h3>
+      <div id="whyCards" class="cards"><p class="muted">Storylines appear as the match unfolds.</p></div>
+    </div>
+    <div class="panels player hidden">
+      <h3>Player spotlight</h3>
+      <select id="playerPick" class="full"></select>
+      <div id="playerStats" class="cards"><p class="muted">Pick a player to track their touches.</p></div>
+    </div>
+  </aside>
+  <section class="feed">
+    <h3>Agent feed <span class="muted">analyst · commentator · recap — evidence ids on every line</span></h3>
+    <div id="feed"></div>
+  </section>
+</main>
+
+<section id="recapModal" class="modal hidden">
+  <div class="sheet">
+    <h3 id="recapTitle">Full-time recap</h3>
+    <div id="recapBody"></div>
+    <button id="recapClose" class="primary">Close</button>
+  </div>
+</section>
+<footer class="foot">Touchline · Microsoft × Premier League Inside the Game Developer Hackathon · fully synthetic data, no real league footage or statistics</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Azure Container Apps manifest for the Touchline API container.
+# Deploy:  az containerapp up --name touchline --resource-group touchline-rg \
+#            --environment touchline-env --ingress external --target-port 8000 \
+#            --source .
+properties:
+  template:
+    containers:
+      - name: touchline-api
+        image: touchline/api:latest
+        resources:
+          cpu: 0.5
+          memory: 1Gi
+        env:
+          - name: AZURE_OPENAI_ENDPOINT
+            value: ""            # set in production via Key Vault reference
+          - name: AZURE_OPENAI_DEPLOYMENT
+            value: gpt-4o-mini
+        probes:
+          - type: Liveness
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 10
+    scale:
+      minReplicas: 0
+      maxReplicas: 5
